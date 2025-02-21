@@ -1,0 +1,1 @@
+I created a Smart Note Manager, which can be use to manage one's activities, either work related or personal. You can add note, delete note, search note etc. I was able to carry out this task using python object oriented programming
