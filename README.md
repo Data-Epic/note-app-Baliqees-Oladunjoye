@@ -1,3 +1,5 @@
+**SMART NOTE MANAGER**
+
 **Overview**
 Smart Notes Manager is a simple, interactive command-line application that allows users to create, organize, search, and delete notes efficiently. This project is designed using Object-Oriented Programming (OOP) principles and is progressively enhanced with additional features
 
