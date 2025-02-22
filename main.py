@@ -1,6 +1,6 @@
 from note import Note #import the Note class
 
-from note import NoteManager 
+from note import NoteManager #import NoteManager
 import datetime
 
 
