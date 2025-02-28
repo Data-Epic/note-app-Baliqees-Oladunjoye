@@ -1,6 +1,6 @@
 import datetime
 class Note:
-    def __init__(self, content, created_at):
+    def __init__(self, content, created_at, note_details):
         """Initialize a note with a content and created_at(The  timestamp when the note was added) """
         self.content = content
         self.created_at = created_at
@@ -41,6 +41,7 @@ class NoteManager:
                               "created_at":datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
         self.note_id_counter += 1 #increase the counter for the next note
         print(f'Note {self.note[note_id]} added successfully')
+        return self.note[note_id]  # Ensure this line returns the note
     def delete_note(self, note_id):
         '''delete a note by id'''
         if note_id in self.note:
@@ -48,25 +49,32 @@ class NoteManager:
             print (f'Note {note_id} deleted successfully')
         else:
             print(f'Note {note_id} not found')
+
+    def show_note(self, note_id):
+        """Retrieve a specific note by ID."""
+        if note_id in self.note:
+            return {note_id: self.note[note_id]}
+        else:
+            raise KeyError(f"Note ID {note_id} does not exist.")
     
-    def show_note(self):
-        """Displays all notes"""
-        if self.note:
-            print("\n📜 All Notes:")
-            for note_id, note in self.note.items():
-                print(f'ID: {note_id}, Type: {note["type"]}, Content: {note["content"]}, Created: {note["created_at"]}')
-        else:
-            print("\n📭 No notes available!\n")
 
+    def test_delete_existing_note(note_manager):
+        '''Test deleting an existing note'''
+        # Add a note first
+        note_manager.add_note("work", "Prepare slides", "2025-02-10 02:00:00")
+        note_id = 1  # Assuming the first note has ID 1
 
+        # Delete the note
+        note_manager.delete_note(note_id)
+
+        # Verify the note is deleted
+        with pytest.raises(KeyError):  # Or ValueError, depending on your implementation
+            note_manager.show_note(note_id)
+    
     def search_note(self, keyword):
-        """Finds notes that contain a specific keyword in their content."""
-        found_notes = [note for note_id, note in self.note.items() if keyword.lower() 
-                       in note["content"].lower()]
-        if found_notes:
-            print(f'Notes containing "{keyword}":')
-            for note in found_notes:
-                print(f"- {note['type']}: {note['content']}")
-        else:
-            print(f'No notes found with keyword "{keyword}".')
+        matching_notes = {}
+        for note_id, note in self.note.items():
+            if keyword.lower() in note["content"].lower():
+                matching_notes[note_id] = note
 
+        return matching_notes  # Return the matching notes

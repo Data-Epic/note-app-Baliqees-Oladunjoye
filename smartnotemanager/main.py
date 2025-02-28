@@ -1,6 +1,5 @@
-from note import Note #import the Note class
-
-from note import NoteManager #import NoteManager
+from smartnotemanager.note import Note #import the Note class
+from smartnotemanager.note import NoteManager #import NoteManager
 import datetime
 
 
@@ -8,7 +7,7 @@ def main():
     manager = NoteManager()
     
     while True:
-        print("\n===  Smart Notes Manager ===")
+        print("\n=== Welcome to Smart Notes Manager ===")
         print(" 1 Add a Note")
         print(" 2 Delete a Note")
         print(" 3 Search Notes")
